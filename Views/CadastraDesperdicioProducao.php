@@ -25,9 +25,6 @@
                     <th>
                         Numero
                     </th>
-                    <th>
-                        Finalizar
-                    </th>
 
                     <th colspan="2">
                         Ações
@@ -42,9 +39,6 @@
                     </td>
                     <td>
                         <input type='text' name='numeroProducao' value='<?php echo $DesperdicioProducaoModel->getNumeroProducao(); ?>'>
-                    </td>
-                    <td>
-                        <input type='text' name='finalizada' value='<?php echo $DesperdicioProducaoModel->getFinalizada(); ?>'>
                     </td>
 
                     <td align="center">
