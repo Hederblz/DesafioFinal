@@ -2,7 +2,13 @@
 <?php include "Head.php"; ?>
 <?php
     $v_params = $this->getParams();
-    $DesperdicioProducaoModel = $v_params['DesperdicioProducaoModel'];
+    $DesperdicioProdutoModel = $v_params['DesperdicioProdutoModel'];
+    if ($DesperdicioProdutoModel->getId() != null) {
+        $codProducao = $v_params["DesperdicioProducao"];
+        $codProduto = $v_params["Produtos"];
+    }
+    $v_DesperdicioProducao = $v_params["v_DesperdicioProducao"];
+    //$v_Produtos = $v_params["v_Produtos"];
 ?>
 
 <html lang="en">
@@ -10,20 +16,20 @@
 <body>
 <?php include "Views/menu.php"; ?>
 
-    <h1 align="center">Cadastra Desperdicio de Producao</h1>
+    <h1 align="center">Cadastra Desperdicio de Produtos</h1>
     <div align="center">
         <form method='POST'>
             <table width="300" border="1">
                 
                 <tr>
                     <th>
-                        teste
+                        Producao
                     </th>
                     <th>
-                        teste
+                        Produto
                     </th>
                     <th>
-                        teste
+                        Quantidade de Saida
                     </th>
 
                     <th colspan="2">
@@ -31,23 +37,60 @@
                     </th>
                 </tr>
                 <tr>
-                    <td>
-                        <input type='text' name='nomePessoa' value='<?php echo $DesperdicioProducaoModel->getNomePessoa(); ?>'>
+                <td>
+                        <select name="DesperdicioProducao">
+                            <?php
+                            if ($DesperdicioProdutoModel->getId() !== null) {
+                            ?>
+                                <option value="<?php echo $codProducao->getId() ?>"> <?php echo $codProducao->getNomePessoa(); ?></option>
+                            <?php
+                            }
+                            ?>
+
+                            <?php
+                            foreach ($v_DesperdicioProducao as $DesperdicioProducao) {
+                                if ($DesperdicioProducao->getId() !== $DesperdicioProdutoModel->getNomePessoa()) {
+                            ?>
+                                    <option value="<?php echo $DesperdicioProducao->getId() ?>"><?php echo $DesperdicioProducao->getNomePessoa(); ?></option>
+                            <?php
+                                }
+                            }
+                            ?>
+                        </select>
                     </td>
                     <td>
-                        <input type='date' name='dataSaida' value='<?php echo $DesperdicioProducaoModel->getDataSaida(); ?>'>
+                        <select name="codigoProduto">
+                            <?php
+                            if ($DesperdicioProdutoModel->getId() !== null) {
+                            ?>
+                                <option value="<?php echo $codProduto->getId() ?>"> <?php echo $codProduto->getDescricao(); ?></option>
+                            <?php
+                            }
+                            ?>
+
+                            <?php
+                            foreach ($v_Produtos as $Produtos) {
+                                if ($Produtos->getId() !== $DesperdicioProdutoModel->getDescricao()) {
+                            ?>
+                                    <option value="<?php echo $Produtos->getId() ?>"><?php echo $Produtos->getDescricao(); ?></option>
+                            <?php
+                                }
+                            }
+                            ?>
+                        </select>
                     </td>
                     <td>
-                        <input type='text' name='numeroProducao' value='<?php echo $DesperdicioProducaoModel->getNumeroProducao(); ?>'>
-                    </td>
+                        <input type='text' name='qtdeSaida' value='<?php echo $DesperdicioProdutoModel->getQtdeSaida(); ?>'>
+                    </td> 
+                    
 
                     <td align="center">
                         <a href='index.php'>Cancelar</a>
                     </td>
                     <td align="center">
-                        <input type='hidden' name='controle' value='DesperdicioProducao'>
-                        <input type='hidden' name='acao' value='cadastraDesperdicioProducao'>
-                        <input type='hidden' name='id' value='<?php echo $DesperdicioProducaoModel->getId(); ?>'>
+                        <input type='hidden' name='controle' value='DesperdicioProduto'>
+                        <input type='hidden' name='acao' value='cadastraDesperdicioProduto'>
+                        <input type='hidden' name='id' value='<?php echo $DesperdicioProdutoModel->getId(); ?>'>
                         <button type='submit'>Salvar</button>
                     </td>
                 </tr>

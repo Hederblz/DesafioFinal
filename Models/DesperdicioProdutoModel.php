@@ -3,20 +3,10 @@
 
 class DesperdicioProdutoModel{
 
-    private $sequencia;
     private $id;
-    private $codigo_produto;
+    private $codProducao;
+    private $codProduto;
     private $qtde_saida;
-
-    public function setSequencia($sequencia)
-    {
-        $this->sequencia = $sequencia;
-    }
-
-    public function getSequencia()
-    {
-        return $this->sequencia;
-    }
 
     public function setId($id)
     {
@@ -28,14 +18,24 @@ class DesperdicioProdutoModel{
         return $this->id;
     }
 
-    public function setCodigoProduto($codigo_produto)
+    public function setCodigoProducao($codProducao)
     {
-        $this->codigo_produto = $codigo_produto;
+        $this->codProducao = $codProducao;
+    }
+
+    public function getCodigoProducao()
+    {
+        return $this->codProducao;
+    }
+
+    public function setCodigoProduto($codProduto)
+    {
+        $this->codProduto = $codProduto;
     }
 
     public function getCodigoProduto()
     {
-        return $this->codigo_produto;
+        return $this->codProduto;
     }
 
     public function setQtdeSaida($qtde_saida)

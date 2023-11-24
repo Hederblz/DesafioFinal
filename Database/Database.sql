@@ -26,11 +26,23 @@ CREATE TABLE desperdicio_producao (
 
 CREATE TABLE desperdicio_producao_produto (
 	sequencia INT AUTO_INCREMENT,
+	codTbProducao INT,-- codTbProducao REPRESENTA UM RELACIONAMENTO COM O ID DA TABELA DESPERDICIO PRODUCAO
+    codTbProduto INT, -- FAZ REFERENCIA AO ID DA TABELA PRODUTOS
+    qtde_saida INT,
+    FOREIGN KEY (codTbProducao) REFERENCES desperdicio_producao(id),
+    FOREIGN KEY (codTbProduto) REFERENCES produtos(codigo_produto),
+    PRIMARY KEY (sequencia)
+);
+
+-- old ---- old ---- old ---- old ---- old ---- old --
+CREATE TABLE desperdicio_producao_produto (
+	sequencia INT AUTO_INCREMENT,
 	id INT,-- ID REPRESENTA UM RELACIONAMENTO COM O ID DA TABELA DESPERDICIO PRODUCAO
     codigo_produto INT, -- FAZ REFERENCIA AO ID DA TABELA PRODUTOS
     qtde_saida INT,
     PRIMARY KEY (sequencia, id, codigo_produto)
 );
+-- old ---- old ---- old ---- old ---- old ---- old --
 
 ALTER TABLE desperdicio_producao_produto 
 MODIFY COLUMN qtde_saida REAL;
