@@ -107,7 +107,7 @@ class DesperdicioProducaoController extends Banco{
             $DesperdicioProducaoModel->setFinalizada($$_POST['finalizada']);
 
             if ($this->save($DesperdicioProducaoModel)) {
-                Application::redirect('ViewController.php?controle=DesperdicioProducao&acao=listarDesperdicioProducao');
+                Application::redirect('ViewController.php?controle=DesperdicioProduto&acao=CadastraDesperdicioProduto');
             }
         }
 
