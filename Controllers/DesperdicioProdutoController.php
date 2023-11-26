@@ -3,6 +3,7 @@
 require_once 'Models/DesperdicioProdutoModel.php';
 require_once 'Models/DesperdicioProducaoModel.php';
 require_once 'DesperdicioProducaoController.php';
+//  ---Produtos---
 require_once 'Models/ProdutosModel.php';
 require_once 'ProdutosController.php';
 
@@ -26,13 +27,13 @@ class DesperdicioProdutoController extends Banco{
 
         $ProdutosController = new ProdutosController();
         $ProdutosModel = new ProdutosModel();
-        $ProdutosModel = $ProdutosController->loadByID($desperdicioProduto->codigo_produto);
-
+        $ProdutosModel = $ProdutosController->loadByID($desperdicioProduto->codTbProduto);   
+        // Ta dando ERRO!!!
         
         $DesperdicioProdutoModel->setId($desperdicioProduto->sequencia);
         $DesperdicioProdutoModel->setCodigoProducao($DesperdicioProducaoModel->getId());
         $DesperdicioProdutoModel->setCodigoProduto($ProdutosModel->getId());
-        $DesperdicioProdutoModel->setQtdeSaida($desperdicioProduto->qtde_saida);
+        $DesperdicioProdutoModel->setQtdeSaida($desperdicioProduto->qtdeSaida);
 
         return $DesperdicioProdutoModel;
     }
@@ -40,8 +41,10 @@ class DesperdicioProdutoController extends Banco{
     public function save($DesperdicioProdutoModel){
         $link = $this->conecta_mysql();
         $id = $DesperdicioProdutoModel->getId();
-        $codProducao = $DesperdicioProdutoModel->getCodigoProducao();
-        $codProduto = $DesperdicioProdutoModel->getCodigoProduto();
+        //$codProducao = $DesperdicioProdutoModel->getCodigoProducao();
+        $codProducao = 1;
+        //$codProduto = $DesperdicioProdutoModel->getCodigoProduto();
+        $codProduto = 2;
         $qtdeSaida = $DesperdicioProdutoModel->getQtdeSaida();
         $link = $this->conecta_mysql();
 
@@ -50,7 +53,7 @@ class DesperdicioProdutoController extends Banco{
                         (
                             `codTbProducao`,
                             `codTbProduto`,
-                            `qtde_saida`
+                            `qtdeSaida`
                         )
                         VALUES
                         (
@@ -64,7 +67,7 @@ class DesperdicioProdutoController extends Banco{
                         SET
                             `codTbProducao` = '$codProducao',
                             `codTbProduto` = '$codProduto',
-                            `qtde_saida` = '$qtdeSaida'
+                            `qtdeSaida` = '$qtdeSaida'
                         WHERE
                         `sequencia` = $id";
         try {
@@ -102,7 +105,7 @@ class DesperdicioProdutoController extends Banco{
             }
         }
 
-        $sql_query = "SELECT * FROM `desperdicio_producao` ORDER BY `desperdicio_producao`.`nome_pessoa` ASC;";
+        $sql_query = "SELECT * FROM `desperdicio_producao` ORDER BY `desperdicio_producao`.`nomePessoa` ASC;";
 
         try {
             $data = mysqli_query($link, $sql_query);
@@ -112,8 +115,8 @@ class DesperdicioProdutoController extends Banco{
 
         while($desperdicioProducao = $data->fetch_object()){
             $DesperdicioProducaoModel = new DesperdicioProducaoModel();
-            $DesperdicioProducaoModel->setId($desperdicioProducao->id);
-            $DesperdicioProducaoModel->setNomePessoa($desperdicioProducao->nome_pessoa);
+            $DesperdicioProducaoModel->setId($desperdicioProducao->codigo_producao);
+            $DesperdicioProducaoModel->setNomePessoa($desperdicioProducao->nomePessoa);
             array_push($v_DesperdicioProducao, $DesperdicioProducaoModel);
         }
 
@@ -132,7 +135,28 @@ class DesperdicioProdutoController extends Banco{
             array_push($v_Produtos, $ProdutosModel);
         }
 
+        $sql_query = "SELECT * FROM `desperdicio_producao_produto` ORDER BY `desperdicio_producao_produto`.`sequencia` ASC;";
+
+        //$sql_queryTwo = "SELECT dp.codigo_producao,dp.nomePessoa,dp.dataSaida,dp.numeroProducao,dpp.qtdeSaida,pr.descricao AS produto FROM desperdicio_producao dp JOIN desperdicio_producao_produto dpp ON dp.codigo_producao = dpp.codTbProducao JOIN produtos pr ON dpp.codTbProduto = pr.codigo_produto;";
+        //$link = $this->conecta_mysql();
+        try {
+            $data = mysqli_query($link, $sql_query);
+        } catch (mysqli_sql_exception $e) {
+            die($e->getMessage());
+        }
+
+        $v_desperdicioProduto = array();
+        while ($desperdicioProduto_data = $data->fetch_object()) {
+            $DesperdicioProdutoModel = new DesperdicioProdutoModel();
+            $DesperdicioProdutoModel->setId($desperdicioProduto_data->sequencia);
+            $DesperdicioProdutoModel->setCodigoProducao($desperdicioProduto_data->codTbProducao);
+            $DesperdicioProdutoModel->setCodigoProduto($desperdicioProduto_data->codTbProduto);
+            $DesperdicioProdutoModel->setQtdeSaida($desperdicioProduto_data->qtdeSaida);
+            array_push($v_desperdicioProduto, $DesperdicioProdutoModel);
+        }   
+
         $View = new View('views/cadastraDesperdicioProduto.php');
+        $View->setNparams(array('v_desperdicioProduto' => $v_desperdicioProduto));
         $View->setParams(array(
             'DesperdicioProdutoModel' => $DesperdicioProdutoModel,
             'v_DesperdicioProducao' => $v_DesperdicioProducao,
@@ -146,7 +170,7 @@ class DesperdicioProdutoController extends Banco{
     }
 
     public function novoDesperdicioProdutoAction(){
-        $sql_query = "SELECT * FROM `desperdicio_producao` ORDER BY `desperdicio_producao`.`nome_pessoa` ASC;";
+        $sql_query = "SELECT * FROM `desperdicio_producao` ORDER BY `desperdicio_producao`.`nomePessoa` ASC;";
         $link = $this->conecta_mysql();
 
         try {
@@ -189,5 +213,49 @@ class DesperdicioProdutoController extends Banco{
             'v_Produtos' => $v_Produtos
         ));
         $View->showContents();
+    }
+
+    public function listarDesperdicioProdutoAction(){
+        $sql_query = "SELECT * FROM `desperdicio_producao_produto` ORDER BY `desperdicio_producao_produto`.`sequencia` ASC;";
+
+        //$sql_queryTwo = "SELECT dp.codigo_producao,dp.nomePessoa,dp.dataSaida,dp.numeroProducao,dpp.qtdeSaida,pr.descricao AS produto FROM desperdicio_producao dp JOIN desperdicio_producao_produto dpp ON dp.codigo_producao = dpp.codTbProducao JOIN produtos pr ON dpp.codTbProduto = pr.codigo_produto;";
+        $link = $this->conecta_mysql();
+        try {
+            $data = mysqli_query($link, $sql_query);
+        } catch (mysqli_sql_exception $e) {
+            die($e->getMessage());
+        }
+
+        $v_desperdicioProduto = array();
+        while ($desperdicioProduto_data = $data->fetch_object()) {
+            $DesperdicioProdutoModel = new DesperdicioProdutoModel();
+            $DesperdicioProdutoModel->setId($desperdicioProduto_data->sequencia);
+            $DesperdicioProdutoModel->setCodigoProducao($desperdicioProduto_data->codTbProducao);
+            $DesperdicioProdutoModel->setCodigoProduto($desperdicioProduto_data->codTbProduto);
+            $DesperdicioProdutoModel->setQtdeSaida($desperdicioProduto_data->qtdeSaida);
+            array_push($v_desperdicioProduto, $DesperdicioProdutoModel);
+        }   
+
+        $View = new View('views/listarDesperdicioProduto.php');
+        $View->setNparams(array('v_desperdicioProduto' => $v_desperdicioProduto));
+        $View->showContents();
+    }
+
+    public function apagarDesperdicioProdutoAction(){
+        if ($_GET['id']) {
+            $DesperdicioProdutoModel = new DesperdicioProdutoModel();
+            $DesperdicioProdutoModel = $this->loadById($_GET['id']);
+            $id = $DesperdicioProdutoModel->getId();
+            $link = $this->conecta_mysql();
+            if (!is_null($id)) {
+                $sql_query = "DELETE FROM `desperdicio_producao_produto` WHERE `desperdicio_producao_produto`.`sequencia`=$id";
+                try {
+                    mysqli_query($link, $sql_query);
+                } catch (mysqli_sql_exception $e) {
+                    die($e->getMessage());
+                }
+            }
+            Application::redirect('ViewController.php?controle=DesperdicioProduto&acao=cadastraDesperdicioProduto');
+        }
     }
 }

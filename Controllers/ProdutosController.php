@@ -20,7 +20,8 @@ class ProdutosController extends Banco{
 
         $GrupoProdutosController = new GrupoProdutosController();
         $GrupoProdutosModel = new GrupoProdutosModel();
-        $GrupoProdutosModel = $GrupoProdutosController->loadByID($produtos->codigo_grupo);
+        $GrupoProdutosModel = $GrupoProdutosController->loadByID($produtos->codTbGrupo);
+        //ta dando ERRO
 
         
         $ProdutosModel->setId($produtos->codigo_produto);

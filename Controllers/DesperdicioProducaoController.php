@@ -5,7 +5,7 @@ require_once 'Models/DesperdicioProducaoModel.php';
 class DesperdicioProducaoController extends Banco{
 
     public function loadById($id){
-        $sql_query = "SELECT * FROM `desperdicio_producao` WHERE `desperdicio_producao`.`id` = $id;";
+        $sql_query = "SELECT * FROM `desperdicio_producao` WHERE `desperdicio_producao`.`codigo_producao` = $id;";
         $DesperdicioProducaoModel = new DesperdicioProducaoModel();
         $link = $this->conecta_mysql();
 
@@ -16,17 +16,17 @@ class DesperdicioProducaoController extends Banco{
         }
 
         $desperdicioProducao = $data->fetch_object();
-        $DesperdicioProducaoModel->setId($desperdicioProducao->id);
-        $DesperdicioProducaoModel->setNomePessoa($desperdicioProducao->nome_pessoa);
-        $DesperdicioProducaoModel->setDataSaida($desperdicioProducao->data_saida);
-        $DesperdicioProducaoModel->setNumeroProducao($desperdicioProducao->numero_producao);
+        $DesperdicioProducaoModel->setId($desperdicioProducao->codigo_producao);
+        $DesperdicioProducaoModel->setNomePessoa($desperdicioProducao->nomePessoa);
+        $DesperdicioProducaoModel->setDataSaida($desperdicioProducao->dataSaida);
+        $DesperdicioProducaoModel->setNumeroProducao($desperdicioProducao->numeroProducao);
         $DesperdicioProducaoModel->setFinalizada($desperdicioProducao->finalizada);
 
         return $DesperdicioProducaoModel;
     }
 
     public function listarDesperdicioProducaoAction(){
-        $sql_query = "SELECT * FROM `desperdicio_producao` ORDER BY `desperdicio_producao`.`id` ASC;";
+        $sql_query = "SELECT * FROM `desperdicio_producao` ORDER BY `desperdicio_producao`.`codigo_producao` ASC;";
         $link = $this->conecta_mysql();
 
         try {
@@ -38,10 +38,10 @@ class DesperdicioProducaoController extends Banco{
         $v_desperdicioProducao = array();
         while ($desperdicioProducao_data = $data->fetch_object()) {
             $DesperdicioProducaoModel = new DesperdicioProducaoModel();
-            $DesperdicioProducaoModel->setId($desperdicioProducao_data->id);
-            $DesperdicioProducaoModel->setNomePessoa($desperdicioProducao_data->nome_pessoa);
-            $DesperdicioProducaoModel->setDataSaida($desperdicioProducao_data->data_saida);
-            $DesperdicioProducaoModel->setNumeroProducao($desperdicioProducao_data->numero_producao);
+            $DesperdicioProducaoModel->setId($desperdicioProducao_data->codigo_producao);
+            $DesperdicioProducaoModel->setNomePessoa($desperdicioProducao_data->nomePessoa);
+            $DesperdicioProducaoModel->setDataSaida($desperdicioProducao_data->dataSaida);
+            $DesperdicioProducaoModel->setNumeroProducao($desperdicioProducao_data->numeroProducao);
             $DesperdicioProducaoModel->setFinalizada($desperdicioProducao_data->finalizada);
             array_push($v_desperdicioProducao, $DesperdicioProducaoModel);
         }
@@ -62,9 +62,9 @@ class DesperdicioProducaoController extends Banco{
         if (is_null($id))
             $sql_query = "INSERT INTO `desperdicio_producao`
                         (
-                            `nome_pessoa`,
-                            `data_saida`,
-                            `numero_producao`,
+                            `nomePessoa`,
+                            `dataSaida`,
+                            `numeroProducao`,
                             `finalizada`
                         )
                         VALUES
@@ -78,12 +78,12 @@ class DesperdicioProducaoController extends Banco{
             $sql_query = "UPDATE
                             `desperdicio_producao`
                         SET
-                            `nome_pessoa` = '$nomePessoa',
-                            `data_saida` = '$dataSaida',
-                            `numero_producao` = '$numeroProducao',
+                            `nomePessoa` = '$nomePessoa',
+                            `dataSaida` = '$dataSaida',
+                            `numeroProducao` = '$numeroProducao',
                             `finalizada` = '$finalizada'
                         WHERE
-                        `id` = $id";
+                        `codigo_producao` = $id";
         try {
             mysqli_query($link, $sql_query);
             return true;
@@ -107,12 +107,35 @@ class DesperdicioProducaoController extends Banco{
             $DesperdicioProducaoModel->setFinalizada($$_POST['finalizada']);
 
             if ($this->save($DesperdicioProducaoModel)) {
-                Application::redirect('ViewController.php?controle=DesperdicioProduto&acao=CadastraDesperdicioProduto');
+                Application::redirect('ViewController.php?controle=DesperdicioProduto&acao=listarDesperdicioProduto');
+                //CadastraDesperdicioProduto
             }
         }
+        $sql_query = "SELECT * FROM `desperdicio_producao` ORDER BY `desperdicio_producao`.`codigo_producao` ASC;";
+        $link = $this->conecta_mysql();
+
+        try {
+            $data = mysqli_query($link, $sql_query);
+        } catch (mysqli_sql_exception $e) {
+            die($e->getMessage());
+        }
+
+        $v_desperdicioProducao = array();
+        while ($desperdicioProducao_data = $data->fetch_object()) {
+            $DesperdicioProducaoModel = new DesperdicioProducaoModel();
+            $DesperdicioProducaoModel->setId($desperdicioProducao_data->codigo_producao);
+            $DesperdicioProducaoModel->setNomePessoa($desperdicioProducao_data->nomePessoa);
+            $DesperdicioProducaoModel->setDataSaida($desperdicioProducao_data->dataSaida);
+            $DesperdicioProducaoModel->setNumeroProducao($desperdicioProducao_data->numeroProducao);
+            $DesperdicioProducaoModel->setFinalizada($desperdicioProducao_data->finalizada);
+            array_push($v_desperdicioProducao, $DesperdicioProducaoModel);
+        }
+
+        
 
         $View = new View('views/cadastraDesperdicioProducao.php');
         $View->setParams(array('DesperdicioProducaoModel' => $DesperdicioProducaoModel));
+        $View->setNparams(array('v_desperdicioProducao' => $v_desperdicioProducao));
         $View->showContents();
 
     }
@@ -124,7 +147,7 @@ class DesperdicioProducaoController extends Banco{
             $id = $DesperdicioProducaoModel->getId();
             $link = $this->conecta_mysql();
             if (!is_null($id)) {
-                $sql_query = "DELETE FROM `desperdicio_producao` WHERE `desperdicio_producao`.`id` = $id";
+                $sql_query = "DELETE FROM `desperdicio_producao` WHERE `desperdicio_producao`.`codigo_producao`=$id";
                 try {
                     mysqli_query($link, $sql_query);
                 } catch (mysqli_sql_exception $e) {
