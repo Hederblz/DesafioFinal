@@ -56,7 +56,7 @@
                         <?php echo $desperdicioProducao->getFinalizada()?>
                     </td>
                     <td align="center">
-                        <a href='#'>Editar</a>
+                        <a href='ViewController.php?controle=DesperdicioProducao&acao=cadastraDesperdicioProducao&id=<?php echo $desperdicioProducao->getId()?>'>Editar</a>
                     </td>
                     <td align="center">
                         <a href='ViewController.php?controle=DesperdicioProducao&acao=apagarDesperdicioProducao&id=<?php echo $desperdicioProducao->getId()?>'>Apagar</a>

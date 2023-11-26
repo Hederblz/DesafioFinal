@@ -58,7 +58,7 @@
             </table>
         </form>
     </div>
-   
+   <!-- Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista -->
     <br>
     <h1 align="center">Lista de Produtos</h1>
     <div align="center">
@@ -96,7 +96,7 @@
         </table>
     </div>
     <br>
-    <div align="center" ><a href="#">Finalizar</a></div>
+    <div align="center" ><button><a href="#" class="sem-linha">Finalizar</a></button></div>
 
     </body>
 

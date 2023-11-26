@@ -16,6 +16,8 @@
 
     a:visited {
         color: green;
-        text-decoration: none;
     }
+    .sem-linha {
+            text-decoration: none;
+        }
 </style>
