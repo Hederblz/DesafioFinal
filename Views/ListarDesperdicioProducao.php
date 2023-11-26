@@ -59,7 +59,7 @@
                         <a href='#'>Editar</a>
                     </td>
                     <td align="center">
-                        <a href='ViewController.php?controle=DesperdicioProducao&acao=apagarDesperdicioProducao&id=<?php echo $desperdicioProducao->getId() ?>'>Apagar</a>
+                        <a href='ViewController.php?controle=DesperdicioProducao&acao=apagarDesperdicioProducao&id=<?php echo $desperdicioProducao->getId()?>'>Apagar</a>
                     </td>
                 </tr>
                 <?php } ?>

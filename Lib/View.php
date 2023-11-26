@@ -5,12 +5,14 @@ class View
     private $contents;
     private $view;
     private $v_params;
+    private $n_params;
 
-    function __construct($view = null, $v_params = null)
+    function __construct($view = null, $v_params = null, $n_params = null)
     {
         if ($view != null)
             $this->setView($view);
-        $this->v_params = $v_params;
+        else{$this->v_params = $v_params;
+        $this->n_params = $n_params;}
     }
 
 
@@ -38,6 +40,14 @@ class View
     public function getParams()
     {
         return $this->v_params;
+    }
+
+    public function setNparams(array $n_params){
+        $this->n_params = $n_params;
+    }
+
+    public function getNparams(){
+        return $this->n_params;
     }
 
     public function getContents()
