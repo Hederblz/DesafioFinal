@@ -1,5 +1,6 @@
 <?php
 
+//  ---GrupoProdutos---
 require_once 'GrupoProdutosController.php';
 require_once 'Models/GrupoProdutosModel.php';
 

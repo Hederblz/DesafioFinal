@@ -104,38 +104,16 @@ class DesperdicioProducaoController extends Banco{
             $DesperdicioProducaoModel->setNomePessoa($_POST['nomePessoa']);
             $DesperdicioProducaoModel->setDataSaida($_POST['dataSaida']);
             $DesperdicioProducaoModel->setNumeroProducao($_POST['numeroProducao']);
-            $DesperdicioProducaoModel->setFinalizada($$_POST['finalizada']);
+            $DesperdicioProducaoModel->setFinalizada($_POST['finalizada']);
 
             if ($this->save($DesperdicioProducaoModel)) {
-                Application::redirect('ViewController.php?controle=DesperdicioProduto&acao=listarDesperdicioProduto');
+                Application::redirect('ViewController.php?controle=DesperdicioProduto&acao=cadastraDesperdicioProduto');
                 //CadastraDesperdicioProduto
             }
         }
-        $sql_query = "SELECT * FROM `desperdicio_producao` ORDER BY `desperdicio_producao`.`codigo_producao` ASC;";
-        $link = $this->conecta_mysql();
-
-        try {
-            $data = mysqli_query($link, $sql_query);
-        } catch (mysqli_sql_exception $e) {
-            die($e->getMessage());
-        }
-
-        $v_desperdicioProducao = array();
-        while ($desperdicioProducao_data = $data->fetch_object()) {
-            $DesperdicioProducaoModel = new DesperdicioProducaoModel();
-            $DesperdicioProducaoModel->setId($desperdicioProducao_data->codigo_producao);
-            $DesperdicioProducaoModel->setNomePessoa($desperdicioProducao_data->nomePessoa);
-            $DesperdicioProducaoModel->setDataSaida($desperdicioProducao_data->dataSaida);
-            $DesperdicioProducaoModel->setNumeroProducao($desperdicioProducao_data->numeroProducao);
-            $DesperdicioProducaoModel->setFinalizada($desperdicioProducao_data->finalizada);
-            array_push($v_desperdicioProducao, $DesperdicioProducaoModel);
-        }
-
         
-
         $View = new View('views/cadastraDesperdicioProducao.php');
         $View->setParams(array('DesperdicioProducaoModel' => $DesperdicioProducaoModel));
-        $View->setNparams(array('v_desperdicioProducao' => $v_desperdicioProducao));
         $View->showContents();
 
     }

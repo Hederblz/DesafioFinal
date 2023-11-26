@@ -1,6 +1,7 @@
 <?php
 
 require_once 'Models/DesperdicioProdutoModel.php';
+//  ---Producao---
 require_once 'Models/DesperdicioProducaoModel.php';
 require_once 'DesperdicioProducaoController.php';
 //  ---Produtos---
@@ -147,12 +148,12 @@ class DesperdicioProdutoController extends Banco{
 
         $v_desperdicioProduto = array();
         while ($desperdicioProduto_data = $data->fetch_object()) {
-            $DesperdicioProdutoModel = new DesperdicioProdutoModel();
-            $DesperdicioProdutoModel->setId($desperdicioProduto_data->sequencia);
-            $DesperdicioProdutoModel->setCodigoProducao($desperdicioProduto_data->codTbProducao);
-            $DesperdicioProdutoModel->setCodigoProduto($desperdicioProduto_data->codTbProduto);
-            $DesperdicioProdutoModel->setQtdeSaida($desperdicioProduto_data->qtdeSaida);
-            array_push($v_desperdicioProduto, $DesperdicioProdutoModel);
+            $DesperdicioProdutoModelTwo = new DesperdicioProdutoModel();
+            $DesperdicioProdutoModelTwo->setId($desperdicioProduto_data->sequencia);
+            $DesperdicioProdutoModelTwo->setCodigoProducao($desperdicioProduto_data->codTbProducao);
+            $DesperdicioProdutoModelTwo->setCodigoProduto($desperdicioProduto_data->codTbProduto);
+            $DesperdicioProdutoModelTwo->setQtdeSaida($desperdicioProduto_data->qtdeSaida);
+            array_push($v_desperdicioProduto, $DesperdicioProdutoModelTwo);
         }   
 
         $View = new View('views/cadastraDesperdicioProduto.php');
