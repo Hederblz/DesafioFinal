@@ -5,12 +5,12 @@
     $DesperdicioProdutoModel = $v_params['DesperdicioProdutoModel'];
     $n_params = $this->getNparams();
     $v_desperdicioProduto = $n_params['v_desperdicioProduto'];
- //   if ($DesperdicioProdutoModel->getId() != null) {
-    //    $codProducao = $v_params["DesperdicioProducao"];
-    //    $codProduto = $v_params["Produtos"];
-   // }
-   // $v_DesperdicioProducao = $v_params["v_DesperdicioProducao"];
-    //$v_Produtos = $v_params["v_Produtos"];
+    if ($DesperdicioProdutoModel->getId() != null) {
+        $codProducao = $v_params["DesperdicioProducao"];
+        $codProduto = $v_params["Produtos"];
+    }
+    $v_DesperdicioProducao = $v_params["v_DesperdicioProducao"];
+    $v_Produtos = $v_params["v_Produtos"];
 ?>
 
 <html lang="en">
@@ -25,6 +25,9 @@
                 
                 <tr>
                     <th>    
+                        Funcionario
+                    </th>
+                    <th>    
                         Produto
                     </th>
                     <th>
@@ -36,14 +39,48 @@
                     </th>
                 </tr>
                 <tr>
-                    <td>
-                        <select id="produtos" name="produto">
-                        <option value="1">Produto A</option>
-                        <option value="2">Produto B</option>
+                <td>
+                        <select name="codigoProducao">
+                            <?php 
+                            if($DesperdicioProdutoModel->getId() !== null){
+                            ?>
+                        <option value="<?php echo $codProducao->getId() ?>"><?php echo $codProducao->getNomePessoa(); ?></option>
+                        <?php
+                        }
+                        ?>
+                        <?php
+                            foreach ($v_DesperdicioProducao as $producao) {
+                                if ($producao->getId() !== $DesperdicioProdutoModel->getCodigoProducao()) {
+                            ?>
+                                    <option value="<?php echo $producao->getId() ?>"><?php echo $producao->getNomePessoa(); ?></option>
+                            <?php
+                                }
+                            }
+                            ?>
                         </select>   
                     </td> 
                     <td>
-                        <input type='text' name='qtdeSaida' value='<?php echo $DesperdicioProdutoModel->getQtdeSaida(); ?>'>
+                        <select name="codigoProduto">
+                            <?php 
+                            if($DesperdicioProdutoModel->getId() !== null){
+                            ?>
+                        <option value="<?php echo $codProduto->getId() ?>"><?php echo $codProduto->getDescricao(); ?></option>
+                        <?php
+                        }
+                        ?>
+                        <?php
+                            foreach ($v_Produtos as $produtos) {
+                                if ($produtos->getId() !== $DesperdicioProdutoModel->getCodigoProduto()) {
+                            ?>
+                                    <option value="<?php echo $produtos->getId() ?>"><?php echo $produtos->getDescricao(); ?></option>
+                            <?php
+                                }
+                            }
+                            ?>
+                        </select>   
+                    </td> 
+                    <td>
+                        <input type='text' name='qtdeSaida'  min="0" max="99999" value='<?php echo $DesperdicioProdutoModel->getQtdeSaida(); ?>'>
                     </td> 
                     <td align="center">
                         <a href='index.php'>Cancelar</a>
@@ -57,7 +94,10 @@
                 </tr>
             </table>
         </form>
+        <br>
+        <button><a href="#" class="sem-linha">Finalizar</a></button>
     </div>
+    <br>
    <!-- Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista -->
     <br>
     <h1 align="center">Lista de Produtos</h1>
@@ -75,12 +115,16 @@
                 </th>
             </tr>
             <?php
-            foreach($v_desperdicioProduto AS $desperdicioProduto)
-            {
+            foreach ($v_Produtos as $produtos) {
+                foreach($v_desperdicioProduto AS $desperdicioProduto)
+                {
+                    if ($produtos->getId() === $desperdicioProduto->getCodigoProduto()) {
+                
                 ?>
             <tr>
                 <td>
-                    <?php echo $desperdicioProduto->getCodigoProduto()?>
+                    <?php echo $produtos->getDescricao();
+                    //echo $desperdicioProduto->getCodigoProduto()?>
                 </td>
                 <td>
                     <?php echo $desperdicioProduto->getQtdeSaida()?>
@@ -92,11 +136,12 @@
                     <a href='ViewController.php?controle=DesperdicioProduto&acao=apagarDesperdicioProduto&id=<?php echo $desperdicioProduto->getId()?>'>Apagar</a>
                 </td>
             </tr>
-            <?php } ?>
+            <?php }
+           }
+        } ?>
         </table>
     </div>
-    <br>
-    <div align="center" ><button><a href="#" class="sem-linha">Finalizar</a></button></div>
+    
 
     </body>
 
