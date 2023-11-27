@@ -18,17 +18,21 @@ class ProdutosController extends Banco{
             die($e->getMessage());
         }
         $produtos = $data->fetch_object();
-
-        $GrupoProdutosController = new GrupoProdutosController();
-        $GrupoProdutosModel = new GrupoProdutosModel();
-        $GrupoProdutosModel = $GrupoProdutosController->loadByID($produtos->codTbGrupo);
-        //ta dando ERRO
-
-        
-        $ProdutosModel->setId($produtos->codigo_produto);
-        $ProdutosModel->setCodigoGrupo($GrupoProdutosModel->getId());
-        $ProdutosModel->setDescricao($produtos->descricao);
-        $ProdutosModel->setUnidade($produtos->unidade);
+        try{
+            if ($produtos !== null) {
+            $GrupoProdutosController = new GrupoProdutosController();
+            $GrupoProdutosModel = new GrupoProdutosModel();
+            $GrupoProdutosModel = $GrupoProdutosController->loadByID($produtos->codTbGrupo);
+            
+            $ProdutosModel->setId($produtos->codigo_produto);
+            $ProdutosModel->setCodigoGrupo($GrupoProdutosModel->getId());
+            $ProdutosModel->setDescricao($produtos->descricao);
+            $ProdutosModel->setUnidade($produtos->unidade);
+            }
+        }
+        catch (mysqli_sql_exception $e) {
+            die($e->getMessage());
+        }
 
         return $ProdutosModel;
     }

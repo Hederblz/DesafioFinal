@@ -4,12 +4,12 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 abstract class Banco{
 	//host
-	//private $host = '127.0.0.1';
-	private $host = 'localhost';
+	private $host = '127.0.0.1';
+	//private $host = 'localhost';
 	//usuario
 	private $usuario = 'root';
 	//senha
-	private $senha = 'root';
+	private $senha = '';
 	//banco de dados
 	private $database = 'desafio';
 

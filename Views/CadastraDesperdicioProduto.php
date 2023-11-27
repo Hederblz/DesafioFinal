@@ -20,7 +20,7 @@
 
     <h1 align="center">Cadastra Desperdicio de Produtos</h1>
     <div align="center">
-<!-- cadastro  cadastro  cadastro  cadastro  cadastro  cadastro  cadastro  cadastro  cadastro  cadastro  cadastro  cadastro  cadastro  cadastro  cadastro  cadastro  -->
+<!-- cadastro -->
         <form method='POST'>
             <table width="300" border="1">
                 
@@ -41,7 +41,7 @@
                 </tr>
                 <tr>
                 <td>
-<!-- codigoProducao  codigoProducao  codigoProducao  codigoProducao  codigoProducao  codigoProducao  codigoProducao  codigoProducao  codigoProducao-->                    
+<!-- codigoProducao  -->                    
                         <select name="codigoProducao">
                             <?php 
                             if($DesperdicioProdutoModel->getId() !== null){
@@ -62,7 +62,7 @@
                         </select>   
                     </td> 
                     <td>
-<!-- codigoProduto  codigoProduto  codigoProduto  codigoProduto  codigoProduto  codigoProduto  codigoProduto  codigoProduto  codigoProduto-->                        
+<!-- codigoProduto -->                        
                         <select name="codigoProduto">
                             <?php 
                             if($DesperdicioProdutoModel->getId() !== null){
@@ -101,12 +101,15 @@
         <button><a href="#" class="sem-linha">Finalizar</a></button>
     </div>
     <br>
-   <!-- Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista  Lista -->
+   <!-- Lista -->
     <br>
     <h1 align="center">Lista de Produtos</h1>
     <div align="center">
     <table width="80%" border="1">
             <tr>
+                <th>
+                    Funcionario
+                </th>
                 <th>
                     Produto
                 </th>
@@ -118,13 +121,18 @@
                 </th>
             </tr>
             <?php
-            foreach ($v_Produtos as $produtos) {
-                foreach($v_desperdicioProduto AS $desperdicioProduto)
+            foreach($v_DesperdicioProducao as $desperdicioProducao){
+                foreach ($v_Produtos as $produtos) {
+                    foreach($v_desperdicioProduto AS $desperdicioProduto)
                 {
-                    if ($produtos->getId() === $desperdicioProduto->getCodigoProduto()) {
+                    if ($produtos->getId() === $desperdicioProduto->getCodigoProduto()&&
+                    $desperdicioProducao->getId() === $desperdicioProduto->getCodigoProducao()) {
                 
                 ?>
             <tr>
+                <td>
+                <?php echo $desperdicioProducao->getNomePessoa(); ?>
+                </td>
                 <td>
                     <?php echo $produtos->getDescricao();
                     //echo $desperdicioProduto->getCodigoProduto()?>
@@ -133,7 +141,7 @@
                     <?php echo $desperdicioProduto->getQtdeSaida()?>
                 </td>
                 <td align="center">
-                    <a href='#'>Editar</a>
+                    <a href='ViewController.php?controle=DesperdicioProduto&acao=cadastraDesperdicioProduto&id=<?php echo $desperdicioProduto->getId()?>'>Editar</a>
                 </td>
                 <td align="center">
                     <a href='ViewController.php?controle=DesperdicioProduto&acao=apagarDesperdicioProduto&id=<?php echo $desperdicioProduto->getId()?>'>Apagar</a>
@@ -141,7 +149,8 @@
             </tr>
             <?php }
            }
-        } ?>
+        }
+     } ?>
         </table>
     </div>
     

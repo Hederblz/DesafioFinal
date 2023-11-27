@@ -39,28 +39,16 @@ class DesperdicioProdutoController extends Banco{
     }
 
     public function save($DesperdicioProdutoModel){
-        $link = $this->conecta_mysql();
+        //$link = $this->conecta_mysql();
         $id = $DesperdicioProdutoModel->getId();
         $codProducao = $DesperdicioProdutoModel->getCodigoProducao();
-        //$codProducao = 1;
         $codProduto = $DesperdicioProdutoModel->getCodigoProduto();
-        //$codProduto = 2;
         $qtdeSaida = $DesperdicioProdutoModel->getQtdeSaida();
         $link = $this->conecta_mysql();
 
         if (is_null($id))
-            $sql_query = "INSERT INTO `desperdicio_producao_produto`
-                        (
-                            `codTbProducao`,
-                            `codTbProduto`,
-                            `qtdeSaida`
-                        )
-                        VALUES
-                        (
-                            '$codProducao',
-                            '$codProduto',
-                            '$qtdeSaida'
-                        )";
+            $sql_query = "INSERT INTO `desperdicio_producao_produto` (`codTbProducao`,`codTbProduto`,`qtdeSaida`)
+                        VALUES('$codProducao','$codProduto','$qtdeSaida')";
         else
             $sql_query = "UPDATE
                             `desperdicio_producao_produto`
@@ -92,10 +80,11 @@ class DesperdicioProdutoController extends Banco{
         $link = $this->conecta_mysql();
 
         if (isset($_REQUEST['id'])) {
-            if ($_REQUEST['id'])
+            if ($_REQUEST['id']){
                 $DesperdicioProdutoModel = $this->loadById($_REQUEST['id']);
                 $DesperdicioProducaoModel = $DesperdicioProducaoController->loadById($DesperdicioProdutoModel->getCodigoProducao());
                 $ProdutosModel = $ProdutosController->loadById($DesperdicioProdutoModel->getId());
+            }
         }
 
         if (count($_POST) > 0) {
