@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DesafioFinal" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8ca5f8e2-8203-4099-9418-2c78e791db8e">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MysqlDriver"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+    dp.codigo_producao AS id_desperdicio_producao,
+    dp.nomePessoa,
+    dp.dataSaida,
+    dp.numeroProducao,
+    dpp.sequencia AS id_desperdicio_producao_produto,
+    p.descricao,
+    p.unidade,
+    dpp.qtdeSaida
+FROM
+    desperdicio_producao dp
+JOIN
+    desperdicio_producao_produto dpp ON dp.codigo_producao = dpp.codTbProducao
+JOIN
+    produtos p ON dpp.codTbProduto = p.codigo_produto]]>
+	</queryString>
+	<field name="id_desperdicio_producao" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="codigo_producao"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_desperdicio_producao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="desperdicio_producao"/>
+	</field>
+	<field name="nomePessoa" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nomePessoa"/>
+		<property name="com.jaspersoft.studio.field.label" value="nomePessoa"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="desperdicio_producao"/>
+	</field>
+	<field name="dataSaida" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="dataSaida"/>
+		<property name="com.jaspersoft.studio.field.label" value="dataSaida"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="desperdicio_producao"/>
+	</field>
+	<field name="numeroProducao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="numeroProducao"/>
+		<property name="com.jaspersoft.studio.field.label" value="numeroProducao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="desperdicio_producao"/>
+	</field>
+	<field name="id_desperdicio_producao_produto" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="sequencia"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_desperdicio_producao_produto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="desperdicio_producao_produto"/>
+	</field>
+	<field name="descricao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="descricao"/>
+		<property name="com.jaspersoft.studio.field.label" value="descricao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="produtos"/>
+	</field>
+	<field name="unidade" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="unidade"/>
+		<property name="com.jaspersoft.studio.field.label" value="unidade"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="produtos"/>
+	</field>
+	<field name="qtdeSaida" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="qtdeSaida"/>
+		<property name="com.jaspersoft.studio.field.label" value="qtdeSaida"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="desperdicio_producao_produto"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="220" y="10" width="123" height="31" uuid="2fceb7e0-e420-451f-83ea-ef8622a38250"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[DESAFIO FINAL]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="95" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="14" width="553" height="70" uuid="3bd320ba-519a-49fe-8f0e-ae4abb275d06"/>
+			</rectangle>
+			<line>
+				<reportElement x="0" y="49" width="553" height="1" uuid="cd5fa84c-a958-414d-9a79-bec4130ee118"/>
+			</line>
+			<line>
+				<reportElement x="156" y="14" width="1" height="70" uuid="83817525-4604-4497-a081-2a1e211a0039"/>
+			</line>
+			<line>
+				<reportElement x="270" y="14" width="1" height="70" uuid="b3e9fa4a-901b-4270-99c2-0b49002e7f8b"/>
+			</line>
+			<line>
+				<reportElement x="395" y="14" width="1" height="70" uuid="ed2650c3-69da-4a7f-90a4-eb521df2e33d"/>
+			</line>
+			<staticText>
+				<reportElement x="165" y="50" width="100" height="30" uuid="450cd24a-34f6-4afe-8150-9c9d1d957f52">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="21b85374-099e-41ec-b2d8-f5e39a1db5c0"/>
+				</reportElement>
+				<text><![CDATA[descricao]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="50" width="100" height="30" uuid="af929738-90a8-4bc2-aa95-51c057015700">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="79b75c36-474e-467a-8e8f-8ffc9f1a399e"/>
+				</reportElement>
+				<text><![CDATA[unidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="415" y="50" width="100" height="30" uuid="48b07045-b619-426e-a640-3f4a2a5d9eab">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d8dc0fec-a932-4245-a069-e9377f9aa51e"/>
+				</reportElement>
+				<text><![CDATA[qtdeSaida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="54" width="100" height="30" uuid="0652b636-6d89-40aa-8d90-dc47d1b6a2e3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="730e7874-db09-4748-9c83-506b6b9929fa"/>
+				</reportElement>
+				<text><![CDATA[id_desperdicio_producao_produto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="20" width="100" height="30" uuid="c1363398-de1f-43eb-beb9-b4bbd7196652">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5c8e94dd-4e28-4702-9b55-bf5ce803b969"/>
+				</reportElement>
+				<text><![CDATA[id_desperdicio_producao]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="165" y="20" width="100" height="30" uuid="f8071900-1566-4488-9c55-93a355d90bd3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1a8c2551-9666-4255-8a5b-08b7ae33a841"/>
+				</reportElement>
+				<text><![CDATA[nomePessoa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="14" width="100" height="30" uuid="8f61a189-27a4-426b-8fe6-617a49a07628">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aa438e72-5340-4667-b075-e3c64db45308"/>
+				</reportElement>
+				<text><![CDATA[dataSaida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="415" y="14" width="100" height="30" uuid="4d7626c7-bab1-47bd-9c3a-3be32b02df53">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="69008392-d97b-4001-9554-c2787b8cbee1"/>
+				</reportElement>
+				<text><![CDATA[numeroProducao]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="132" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="19" width="553" height="70" uuid="ed038b40-32be-49d8-a6c5-b501d7043a46"/>
+			</rectangle>
+			<line>
+				<reportElement x="0" y="54" width="553" height="1" uuid="dc094032-3fa9-48fb-a26e-ec69f592b09f"/>
+			</line>
+			<line>
+				<reportElement x="156" y="19" width="1" height="70" uuid="731bd839-230f-4d55-b9a8-908e99571af1"/>
+			</line>
+			<line>
+				<reportElement x="270" y="19" width="1" height="70" uuid="1689c8a2-63cd-4356-9f7b-c39e642928a8"/>
+			</line>
+			<line>
+				<reportElement x="395" y="19" width="1" height="70" uuid="096a653c-1b20-4c66-a142-f9fdd4bde4be"/>
+			</line>
+			<textField>
+				<reportElement x="171" y="55" width="100" height="30" uuid="f3a83167-fbb4-4eeb-becc-a18556ea5d3e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="21b85374-099e-41ec-b2d8-f5e39a1db5c0"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="59" width="100" height="30" uuid="d0c68998-7ebc-4481-bfd1-c2973d7801c3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="79b75c36-474e-467a-8e8f-8ffc9f1a399e"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{unidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="426" y="54" width="100" height="30" uuid="2abacadc-cca5-4474-aec4-6ce9c76adcc7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d8dc0fec-a932-4245-a069-e9377f9aa51e"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{qtdeSaida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="20" y="59" width="100" height="30" uuid="6f0e7cb7-7941-45e4-a298-f976aade0aa8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="730e7874-db09-4748-9c83-506b6b9929fa"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{id_desperdicio_producao_produto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="25" y="22" width="100" height="30" uuid="89e704af-6453-444a-93ef-ef542d683993">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5c8e94dd-4e28-4702-9b55-bf5ce803b969"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{id_desperdicio_producao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="165" y="22" width="100" height="30" uuid="be4fae87-292f-4b6b-9aa3-166b40544a2f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1a8c2551-9666-4255-8a5b-08b7ae33a841"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{nomePessoa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="22" width="100" height="30" uuid="e18089ec-a4f4-4de9-862e-fe21435180b7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aa438e72-5340-4667-b075-e3c64db45308"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{dataSaida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="22" width="100" height="30" uuid="a0bdb308-ff89-47e2-97ed-c1bffc374e8d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="69008392-d97b-4001-9554-c2787b8cbee1"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{numeroProducao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="102" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
