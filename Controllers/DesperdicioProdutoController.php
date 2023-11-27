@@ -29,7 +29,6 @@ class DesperdicioProdutoController extends Banco{
         $ProdutosController = new ProdutosController();
         $ProdutosModel = new ProdutosModel();
         $ProdutosModel = $ProdutosController->loadByID($desperdicioProduto->codTbProduto);   
-        // Ta dando ERRO!!!
         
         $DesperdicioProdutoModel->setId($desperdicioProduto->sequencia);
         $DesperdicioProdutoModel->setCodigoProducao($DesperdicioProducaoModel->getId());
@@ -208,6 +207,23 @@ class DesperdicioProdutoController extends Banco{
             $ProdutosModel->setId($produtos->codigo_produto);
             $ProdutosModel->setDescricao($produtos->descricao);
             array_push($v_Produtos, $ProdutosModel);
+        }
+
+        $sql_query = "SELECT * FROM `desperdicio_producao` ORDER BY `desperdicio_producao`.`nomePessoa` ASC;";
+        $link = $this->conecta_mysql();
+
+        try {
+            $data = mysqli_query($link, $sql_query);
+        } catch (mysqli_sql_exception $e) {
+            die($e->getMessage());
+        }
+
+        $v_DesperdicioProducao = array();
+        while ($desperdicioProducao = $data->fetch_object()) {
+            $DesperdicioProducaoModel = new DesperdicioProducaoModel();
+            $DesperdicioProducaoModel->setId($desperdicioProducao->codigo_produto);
+            $DesperdicioProducaoModel->setNomePessoa($desperdicioProducao->nomePessoa);
+            array_push($v_DesperdicioProducao, $DesperdicioProducaoModel);
         }
 
         $DesperdicioProdutoModel = new DesperdicioProdutoModel();

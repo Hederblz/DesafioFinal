@@ -20,6 +20,7 @@
 
     <h1 align="center">Cadastra Desperdicio de Produtos</h1>
     <div align="center">
+<!-- cadastro  cadastro  cadastro  cadastro  cadastro  cadastro  cadastro  cadastro  cadastro  cadastro  cadastro  cadastro  cadastro  cadastro  cadastro  cadastro  -->
         <form method='POST'>
             <table width="300" border="1">
                 
@@ -40,6 +41,7 @@
                 </tr>
                 <tr>
                 <td>
+<!-- codigoProducao  codigoProducao  codigoProducao  codigoProducao  codigoProducao  codigoProducao  codigoProducao  codigoProducao  codigoProducao-->                    
                         <select name="codigoProducao">
                             <?php 
                             if($DesperdicioProdutoModel->getId() !== null){
@@ -60,6 +62,7 @@
                         </select>   
                     </td> 
                     <td>
+<!-- codigoProduto  codigoProduto  codigoProduto  codigoProduto  codigoProduto  codigoProduto  codigoProduto  codigoProduto  codigoProduto-->                        
                         <select name="codigoProduto">
                             <?php 
                             if($DesperdicioProdutoModel->getId() !== null){
