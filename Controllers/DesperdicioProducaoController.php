@@ -135,4 +135,17 @@ class DesperdicioProducaoController extends Banco{
             Application::redirect('ViewController.php?controle=DesperdicioProducao&acao=listarDesperdicioProducao');
         }
     }
+
+    public function imprimirDesperdicioProducaoAction(){
+        $DesperdicioProducaoModel = new DesperdicioProducaoModel();
+
+        if (isset($_REQUEST['id'])) {
+            if ($_REQUEST['id'])
+                $DesperdicioProducaoModel = $this->loadById($_REQUEST['id']);
+        }
+
+        $teste = print($DesperdicioProducaoModel->getId());
+
+        return $teste;
+    }
 }

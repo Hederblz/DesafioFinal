@@ -61,6 +61,9 @@
                     <td align="center">
                         <a href='ViewController.php?controle=DesperdicioProducao&acao=apagarDesperdicioProducao&id=<?php echo $desperdicioProducao->getId()?>'>Apagar</a>
                     </td>
+                    <td align="center">
+                        <a href='ViewController.php?controle=DesperdicioProducao&acao=imprimirDesperdicioProducao&id=<?php echo $desperdicioProducao->getId()?>'>Imprimir</a>
+                    </td>
                 </tr>
                 <?php } ?>
         </table>
